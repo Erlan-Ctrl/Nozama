@@ -278,7 +278,7 @@
       <input type="hidden" id="id" name="id" />
 
       <div class="mb-3 row">
-        <label for="tituloFilme" class="col-sm-2 col-form-label text-end">Título:</label>
+        <label for="tituloFilme" class="col-sm-2 col-form-label text-end">Título: *</label>
         <div class="col-sm-10">
           <div class="input-group">
             <input type="text" class="form-control" id="tituloFilme" name="title" required autofocus placeholder="Ex.: Cidade de Deus" />
@@ -569,7 +569,7 @@
     if (!titulo) return;
 
     let info = await buscarTMDbPorTitulo(titulo, ano);
-    if (!info) info = await buscarOMDbPorTitulo(titulo, ano);
+    //if (!info) info = await buscarOMDbPorTitulo(titulo, ano);
     if (!info) {
       mostrarMensagem('Não foi possível preencher automaticamente.', false);
       return;
@@ -581,7 +581,7 @@
     if (info.poster && !posterEl.value.trim()) posterEl.value = info.poster;
     if (info.plot && !sinopseEl.value.trim()) sinopseEl.value = info.plot;
 
-    atualizarPreviewPoster(posterEl.value);
+    atualizarPreviewPoster(posterEl.value);                        
     mostrarMensagem(`Preenchido automaticamente pela ${info.poster?.includes('image.tmdb.org') ? 'TMDb' : 'OMDb'}.`, true);
   }
 
@@ -779,6 +779,7 @@
   });
 
   document.getElementById('form-cadastro').addEventListener('submit', async function (e) {
+    console.log('ENVIANDO FORMULÁRIO');
     e.preventDefault();
     const titulo   = document.getElementById('tituloFilme');
     const diretor  = document.getElementById('diretor');
